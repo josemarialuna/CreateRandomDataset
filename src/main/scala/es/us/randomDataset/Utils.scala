@@ -1,5 +1,11 @@
 package es.us.randomDataset
 
+import java.io.PrintWriter
+import java.text.SimpleDateFormat
+import java.util.Calendar
+
+import org.apache.spark.rdd.RDD
+
 /**
   * This object contains two methods that calculates the optimal number for
   * clustering using Kmeans in SPARK MLLIB
@@ -11,16 +17,16 @@ package es.us.randomDataset
 object Utils {
 
   def whatTimeIsIt(): String = {
-    return new SimpleDateFormat("yyyyMMddhhmm").format(Calendar.getInstance().getTime())
+     new SimpleDateFormat("yyyyMMddhhmm").format(Calendar.getInstance().getTime())
   }
 
   def whatDayIsIt(): String = {
-    return new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime())
+     new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime())
   }
 
-  //Return 0 if the data is empty, else return data parsed to Double
+  // 0 if the data is empty, else  data parsed to Double
   def dataToDouble(s: String): Double = {
-    return if (s.isEmpty) 0 else s.toDouble
+     if (s.isEmpty) 0 else s.toDouble
   }
 
   def calculateMedian(listado: List[Double]): Double = {
@@ -33,7 +39,7 @@ object Utils {
       (listado.apply(l) + listado.apply(r)) / 2
     } else listado.apply(count / 2)
 
-    return median
+     median
 
   }
 
