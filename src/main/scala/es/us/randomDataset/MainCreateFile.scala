@@ -20,18 +20,25 @@ object MainCreateFile {
 
     val sc = new SparkContext(conf)
 
-    val dimensions = 3
-    val clusters = 7
-    val instances = 1000
-    val desvTip = 0.1
+    var dimensions = 20
+    var clusters = 9
+    var instances = 1000000
+    var desvTip = 0.1f
+
+    if (args.length > 2) {
+      dimensions = args(0).toInt
+      clusters = args(1).toInt
+      instances = args(2).toInt
+      desvTip = args(3).toFloat
+    }
 
     val valor = scala.math.pow(2, dimensions).toInt
     var marcados = 0
     var marcadosArray = Array.fill(valor) {
       0
     }
-    var indicesSelected = Array[Int]()
 
+    var indicesSelected = Array[Int]()
 
     while (marcados < clusters) {
       val randomNumber = getRandom(0, valor - 1).toInt
@@ -48,7 +55,7 @@ object MainCreateFile {
     val indices = binarySelected
       .map(x => x.toArray.map(giveMeNumber(_)))
 
-    val indicesRDD = sc.parallelize(indices)
+    val indicesRDD = sc.parallelize(indices).cache()
 
     val dataset = indicesRDD.flatMap(x =>
       for {i <- 0 until instances} yield {
@@ -62,36 +69,33 @@ object MainCreateFile {
           case 8 => (getGaussian(x(0), desvTip), getGaussian(x(1), desvTip), getGaussian(x(2), desvTip), getGaussian(x(3), desvTip), getGaussian(x(4), desvTip), getGaussian(x(5), desvTip), getGaussian(x(6), desvTip), getGaussian(x(7), desvTip))
           case 9 => (getGaussian(x(0), desvTip), getGaussian(x(1), desvTip), getGaussian(x(2), desvTip), getGaussian(x(3), desvTip), getGaussian(x(4), desvTip), getGaussian(x(5), desvTip), getGaussian(x(6), desvTip), getGaussian(x(7), desvTip), getGaussian(x(8), desvTip))
           case 10 => (getGaussian(x(0), desvTip), getGaussian(x(1), desvTip), getGaussian(x(2), desvTip), getGaussian(x(3), desvTip), getGaussian(x(4), desvTip), getGaussian(x(5), desvTip), getGaussian(x(6), desvTip), getGaussian(x(7), desvTip), getGaussian(x(8), desvTip), getGaussian(x(9), desvTip))
+          case 20 => new Dim20(getGaussian(x(0), desvTip), getGaussian(x(1), desvTip), getGaussian(x(2), desvTip), getGaussian(x(3), desvTip), getGaussian(x(4), desvTip), getGaussian(x(5), desvTip), getGaussian(x(6), desvTip), getGaussian(x(7), desvTip), getGaussian(x(8), desvTip), getGaussian(x(9), desvTip), getGaussian(x(10), desvTip), getGaussian(x(11), desvTip), getGaussian(x(12), desvTip), getGaussian(x(13), desvTip), getGaussian(x(14), desvTip), getGaussian(x(15), desvTip), getGaussian(x(16), desvTip), getGaussian(x(17), desvTip), getGaussian(x(18), desvTip), getGaussian(x(19), desvTip))
         }
-
       }
     )
 
-
     println(dataset.count())
 
-    dataset.coalesce(1).saveAsTextFile(Utils.whatTimeIsIt())
-
-
+    dataset.map(_.toString).coalesce(1).saveAsTextFile(s"C$clusters-D$dimensions-I$instances-${Utils.whatTimeIsIt()}")
 
     sc.stop()
   }
 
-  def getRandom(from: Integer, to: Integer): Double = {
+  def getRandom(from: Integer, to: Integer): Float = {
     val rnd = new Random()
-     rnd.nextInt((to - from) + 1) + from
+    rnd.nextInt((to - from) + 1) + from
   }
 
-  def getGaussian(average: Double, desv: Double): Double = {
+  def getGaussian(average: Float, desv: Float): Float = {
     val rnd = new Random()
-     rnd.nextGaussian() * desv + average
+    rnd.nextGaussian().toFloat * desv + average
   }
 
   def toBinary(i: Int, digits: Int = 8) =
     String.format("%" + digits + "s", i.toBinaryString).replace(' ', '0')
 
-  def giveMeNumber(i: Int): Double =
-    if (i == 48) 0.25 else 0.75
+  def giveMeNumber(i: Int): Float =
+    if (i == 48) 0.25f else 0.75f
 
 
 }
