@@ -21,9 +21,9 @@ object MainCreateFile {
     val sc = new SparkContext(conf)
 
     var dimensions = 20
-    var clusters = 9
-    var instances = 1000000
-    var desvTip = 0.1f
+    var clusters = 5
+    var instances = 1000
+    var desvTip = 0.05f
 
     if (args.length > 2) {
       dimensions = args(0).toInt
