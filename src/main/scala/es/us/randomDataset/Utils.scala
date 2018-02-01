@@ -17,16 +17,16 @@ import org.apache.spark.rdd.RDD
 object Utils {
 
   def whatTimeIsIt(): String = {
-     new SimpleDateFormat("yyyyMMddhhmm").format(Calendar.getInstance().getTime())
+    new SimpleDateFormat("yyyyMMddhhmm").format(Calendar.getInstance().getTime())
   }
 
   def whatDayIsIt(): String = {
-     new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime())
+    new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime())
   }
 
   // 0 if the data is empty, else  data parsed to Double
   def dataToDouble(s: String): Double = {
-     if (s.isEmpty) 0 else s.toDouble
+    if (s.isEmpty) 0 else s.toDouble
   }
 
   def calculateMedian(listado: List[Double]): Double = {
@@ -39,7 +39,7 @@ object Utils {
       (listado.apply(l) + listado.apply(r)) / 2
     } else listado.apply(count / 2)
 
-     median
+    median
 
   }
 

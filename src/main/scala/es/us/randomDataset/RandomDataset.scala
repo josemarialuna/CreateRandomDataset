@@ -1,8 +1,6 @@
 package es.us.randomDataset
 
-import es.us.randomDataset.MainCreateFile.{getGaussian, getRandom, giveMeNumber, toBinary}
 import org.apache.spark.SparkContext
-import org.apache.spark.rdd.RDD
 
 import scala.util.Random
 

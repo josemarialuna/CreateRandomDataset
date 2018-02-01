@@ -2,8 +2,6 @@ package es.us.randomDataset
 
 import org.apache.spark.{SparkConf, SparkContext}
 
-import scala.util.Random
-
 /**
   * Create a random dataset with row and column number given
   *
@@ -29,8 +27,6 @@ object MainCreateFile {
 
     sc.stop()
   }
-
-
 
 
 }
