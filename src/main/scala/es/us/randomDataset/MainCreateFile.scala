@@ -1,5 +1,6 @@
 package es.us.randomDataset
 
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
@@ -12,18 +13,21 @@ import org.apache.spark.{SparkConf, SparkContext}
 object MainCreateFile {
   def main(args: Array[String]) {
 
+    Logger.getLogger("org").setLevel(Level.OFF)
+
     val conf = new SparkConf()
       .setAppName("Generate Random Dataset")
       .setMaster("local[*]")
 
     val sc = new SparkContext(conf)
 
-    var dimensions = 3
-    var clusters = 5
-    var instances = 100
-    var standDev = 0.05f
+    var dimensions = 3      //Number of features (columns)
+    var clusters = 5        //Number of clusters
+    var instances = 100     //Instances per cluster
+    var standDev = 0.05f    //Standard deviation for the gaussian distribution
+    val withClass = false
 
-    RandomDataset.createFile(sc, dimensions, clusters, instances, standDev, "")
+    RandomDataset.createFile(sc, dimensions, clusters, instances, standDev, "", withClass)
 
     sc.stop()
   }
