@@ -1,6 +1,6 @@
 # CreateRandomDataset
 
-This package contains the code for generating Big Data random datasets in Spark to be used for clustering. Clusters are clearly defined and they follow a gaussian distribution. Datasets are generated taking as input the number of clusters, the number of features (columns), the number of instances on each cluster and the standard deviation of the distribution of the clusters.
+This package contains the code for generating Big Data random datasets in Spark to be used for clustering. Clusters are clearly defined and they follow a gaussian distribution. Datasets are generated taking as input the number of clusters, the number of features (columns), the number of instances on each cluster and the standard deviation of the distribution of the clusters. The instances could also include the class to which they belong.
 
 Here there is two representations of two generated datasets:
 ![Dataset with 2 Features and 4 Clusters](https://github.com/josemarialuna/CreateRandomDataset/blob/master/2Features-4Clusters.PNG)
@@ -29,6 +29,7 @@ The testing classes have been configured for being executed in a laptop. There a
 * clusters: Set the number of clusters.
 * instances: Set the number of instances on each cluster.
 * standDev: Set the standard deviation of the clusters.
+* withClass: True or false that the instances include the class.
 
 
 ```
@@ -42,8 +43,9 @@ val conf = new SparkConf()
     var clusters = 5
     var instances = 100
     var standDev = 0.05f
+    var withClass = false
 
-    RandomDataset.createFile(sc, dimensions, clusters, instances, standDev, "")
+    RandomDataset.createFile(sc, dimensions, clusters, instances, standDev, "", withClass)
 ```
 
 
