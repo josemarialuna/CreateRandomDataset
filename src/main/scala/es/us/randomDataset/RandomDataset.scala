@@ -102,6 +102,32 @@ object RandomDataset {
   }
 
   /**
+    * It generates and saves into disk a dataset with the given configuration.
+    *
+    * @param sc SparkContext from the MainClass.
+    * @param clusters The number of clusters of the dataset.
+    * @param instances The number of instances per cluster.
+    * @param path The path into with the dataset is going to be saved.
+    * @example createFileWithClass(sc, 3, 43, 1000, "")
+    */
+  def createFileWithClass(sc: SparkContext, classes: Int, clusters: Int, instances: Int, path: String) = {
+
+    println("*******************************")
+    println("*******DATASET GENERATOR*******")
+    println("*******************************")
+    println("Configuration:")
+    println("\tClusters: " + clusters)
+    println("\tInstances: " + instances)
+    println("\tClasses: " + classes)
+    println("\tSave directory: " + path)
+    println("Running...\n")
+
+
+
+
+  }
+
+  /**
     * It generates a random Float number in the input range
     *
     * @param from The start point
