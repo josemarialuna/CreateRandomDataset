@@ -92,11 +92,11 @@ object RandomDataset {
     if (withClass) {
       dataset.map(x => x._1 + "," + x._2.toString.replace("(", "").replace(")", ""))
         .coalesce(1, shuffle = true)
-        .saveAsTextFile(s"C$clusters-D$features-I$instances-${Utils.whatTimeIsIt()}")
+        .saveAsTextFile(s"$path\\C$clusters-D$features-I$instances-${Utils.whatTimeIsIt()}")
     } else {
       dataset.map(x => x._2.toString.replace("(", "").replace(")", ""))
         .coalesce(1, shuffle = true)
-        .saveAsTextFile(s"C$clusters-D$features-I$instances-${Utils.whatTimeIsIt()}")
+        .saveAsTextFile(s"$path\\C$clusters-D$features-I$instances-${Utils.whatTimeIsIt()}")
     }
 
   }

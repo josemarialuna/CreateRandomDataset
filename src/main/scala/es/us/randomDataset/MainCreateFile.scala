@@ -22,8 +22,8 @@ object MainCreateFile {
     val sc = new SparkContext(conf)
 
     var dimensions = 20      //Number of features (columns)
-    var clusters = 5        //Number of clusters
-    var instances = 2000     //Instances per cluster
+    var clusters = 7        //Number of clusters
+    var instances = 10     //Instances per cluster
     var standDev = 0.05f    //Standard deviation for the gaussian distribution
     val withClass = false   //True if the class have to be included
 
